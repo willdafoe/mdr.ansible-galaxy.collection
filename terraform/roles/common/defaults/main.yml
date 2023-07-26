@@ -1,0 +1,16 @@
+---
+# defaults file for terraform.core
+check_destroy: false
+complex_vars: true
+force_init: true
+init_reconfigure: false
+lock: true
+overwrite_init: false 
+plan_file: '{{ role_path }}/files/terraform.plan'
+project_path: '{{ playbook_dir }}/terraform'
+provider_upgrade: false
+purge_workspace: false
+state: 'planned'
+state_file: '{{ role_path }}/files/terraform.tfstate'
+workspace: 'default'
+enable_check_mode: false

@@ -1,0 +1,7 @@
+---
+# vars file for defenderlab
+defender_lab:
+  #plan_file: '{{ playbook_dir }}/files/terraform/terraform.plan'
+  #state_file: '{{ playbook_dir }}/files/terraform/terraform.tfstate'
+project_path: '{{ playbook_dir }}/files/terraform'
+enable_check_mode: true

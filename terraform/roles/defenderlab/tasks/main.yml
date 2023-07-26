@@ -1,0 +1,8 @@
+---
+# tasks file for defenderlab
+- name: "[ms.defender.lab] deploy with terraform"
+  ansible.builtin.set_fact:
+    project_path: '{{ role_path }}/files/terraform'
+
+- ansible.builtin.debug:
+    var: '{{ project_path }}'
