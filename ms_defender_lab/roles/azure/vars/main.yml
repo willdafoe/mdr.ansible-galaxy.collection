@@ -1,6 +1,0 @@
----
-# vars file for azure
-project_path: '{{ role_path }}/files/terraform'
-plan_file: '{{ role_path }}/files/terraform.plan'
-state_file: '{{ role_path }}/files/terraform.tfstate'
-  
