@@ -7,7 +7,16 @@
     when: "'{{ deployment_name }}' is in item.key"
     loop: "{{ lookup('ansible.builtin.dict', workspaces, wantlist=True) }}"
 
-  - name: "[git.role] Checking if repository has already been cloned locally"
-    include_tasks: pre-tasks.yml
+  - name: "[git.role] checking if repository has already been cloned locally"
+    ansible.builtin.stat:
+      path: '{{ project_path }}'
+    register: repo_check
+
+  - name: "[git.role] cloning repository"
+    include_tasks: checkout.yml
+    when: repo_check.stat.exists == false
+  
+  - name: "[git.role] skipping repository clone"
+    when: repo_check.stat.exists == true
 
   
