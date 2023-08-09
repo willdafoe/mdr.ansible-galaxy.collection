@@ -1,5 +1,11 @@
 ---
 # tasks file for terraform
+- ansible.builtin.set_fact:
+    state: '{{ state }}'
+
+- ansible.builtin.debug:
+    var: state
+    
 - include_tasks: template.yml
 
 - ansible.builtin.stat:

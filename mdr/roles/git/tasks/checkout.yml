@@ -5,5 +5,6 @@
     ansible.builtin.git:
       repo: '{{ repo_uri }}'
       dest: '{{ project_path }}'
+      key_file: '{{ key_file | default(omit) }}'
       clone: true
     

@@ -1,0 +1,13 @@
+---
+- block:
+    - name: "[role.git] configuring git email"
+      community.general.git_config:
+        name: user.email
+        scope: "local"
+        value: "actions@github.com"
+    
+    - name: "[role.git] configuring git username"
+      community.general.git_config:
+        name: user.name
+        scope: "local"
+        value: "WillDaROBOT"
