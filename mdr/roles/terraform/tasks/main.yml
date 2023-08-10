@@ -6,7 +6,7 @@
       command: '{{ item.value.name }}'
       state: '{{ item.value.state }}'
     when: "'{{ tf_command }}' is in item.key"
-    loop: "{{ lookup('ansible.builtin.vars', 'terraform_command') }}"
+    loop: "{{ lookup('ansible.builtin.dict', 'terraform_command') }}"
 
   - ansible.builtin.debug:
       var: '{{ item }}'
