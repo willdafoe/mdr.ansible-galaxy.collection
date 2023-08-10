@@ -10,6 +10,3 @@
   - ansible.builtin.stat:
       path: '{{ plan_file }}'
     register: run_apply
-
-  - ansible.builtin.debug:
-      var: run_apply
