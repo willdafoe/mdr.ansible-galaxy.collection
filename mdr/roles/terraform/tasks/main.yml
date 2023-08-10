@@ -13,14 +13,17 @@
     with_items:
       - '{{ command }}'
       - '{{ state}}'
-    
-#- ansible.builtin.set_fact:
-#    state: '{{ state }}'
 
-#- ansible.builtin.debug:
-#    var: state
-
-#- include_tasks: template.yml
+  - name: "[role.terraform] generating configuration template"
+    include_tasks: template.yml
+  
+  - name: "[role.terraform] checking if plan file exists"
+    ansible.builtin.stat:
+      path: '{{ plan_file }}'
+    register: run_plan
+  
+  - ansible.builtin.debug:
+      var: run_plan
 
 #- ansible.builtin.stat:
 #    path: '{{ plan_file }}'
