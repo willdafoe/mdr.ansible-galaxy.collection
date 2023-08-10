@@ -3,10 +3,16 @@
 - block:
   - name: "[role.terraform] setting terraform command"
     ansible.builtin.set_fact:
-      tf_command: "{{ lookup('ansible.builtin.vars', 'state') }}"
+      command: '{{ item.value.name }}'
+      state: '{{ item.value.state }}'
+    when: "'{{ tf_command }}' is in item.key"
+    loop: "{{ lookup('ansible.builtin.vars', 'terraform_command') }}"
 
   - ansible.builtin.debug:
-      var: tf_command
+      var: '{{ item }}'
+    with_items:
+      - '{{ command }}'
+      - '{{ state}}'
     
 #- ansible.builtin.set_fact:
 #    state: '{{ state }}'
