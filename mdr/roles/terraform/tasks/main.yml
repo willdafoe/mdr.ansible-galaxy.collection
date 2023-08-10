@@ -20,8 +20,8 @@
   - name: "[role.terraform] running plan"
     include_tasks: plan.yml
     when: run_plan.stat.exists == false
+    register: apply_can_run
   when: command == "plan"
-  register: apply_can_run
 
 - ansible.builtin.debug:
     var: apply_can_run
