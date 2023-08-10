@@ -7,7 +7,8 @@
   when: tf_command is in item.key
   loop: "{{ lookup('ansible.builtin.dict', terraform_command, wantlist=True) }}"
 
-- name: "[role.terraform] running terraform {{ command }}"
+# Plan
+- name: "[role.terraform] running terraform plan"
   block:
   - name: "[role.terraform] generating configuration template"
     include_tasks: template.yml
@@ -20,10 +21,30 @@
   - name: "[role.terraform] running plan"
     include_tasks: plan.yml
     when: run_plan.stat.exists == false
-    register: apply_can_run
   when: command == "plan"
-
-- ansible.builtin.debug:
-    var: apply_can_run
+# Apply
+- name: "[role.terraform] running terraform apply"
+  block:
+  - name: "[role.terraform] checking if apply can run"
+    ansible.builtin.stat:
+      path: '{{ plan_file }}'
+    register: run_apply
+  
+  - name: "[role.terraform] running apply"
+    include_tasks: apply.yml
+    when: run_apply.stat.exists == true
+  when: command == "apply"
+# Destroy
+- name: "[role.terraform] running terraform destroy"
+  block:
+  - name: "[role.terraform] checking if destroy can run"
+    ansible.builtin.stat:
+      path: '{{ state_file }}'
+    register: run_destroy
+  
+  - name: "[role.terraform] running destroy"
+    include_tasks: destroy.yml
+    when: run_destroy.stat.exists == true
+  when: command == "destroy"
 
 

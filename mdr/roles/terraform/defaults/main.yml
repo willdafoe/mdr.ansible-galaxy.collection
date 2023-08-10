@@ -1,7 +1,5 @@
 ---
 # defaults file for terraform
-project_path: '{{ playbook_dir }}'
-
 terraform_command:
   plan:
     name: plan
@@ -17,5 +15,5 @@ state_file: '{{ project_path }}/terraform.tfstate'
 lock_file: '{{ project_path }}/.terraform.lock.hcl'
 config_template: '{{ role_path }}/templates/config.yaml.j2'
 config: '{{ project_path }}/config/config.yaml'
-inventory_file: '{{ project_path }}/myazure_rm.yml'
+inventory_file: '{{ project_path }}/ansible/myazure_rm.yml'
 

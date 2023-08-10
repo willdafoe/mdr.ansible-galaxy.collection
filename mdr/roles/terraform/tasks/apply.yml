@@ -1,9 +1,5 @@
 ---
 - block:
-  - ansible.builtin.stat:
-      path: '{{ plan_file}}'
-    register: _plan_file
-
   - name: "[role.terraform] terraform apply"
     include_tasks: terraform.yml
     vars:
