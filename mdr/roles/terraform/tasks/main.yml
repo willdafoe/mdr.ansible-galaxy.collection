@@ -24,6 +24,6 @@
   when: command == "plan"
 
 - ansible.builtin.debug:
-    var: apply_can_run
+    var: run_apply
 
 
