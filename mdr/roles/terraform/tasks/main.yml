@@ -24,6 +24,10 @@
   
   - ansible.builtin.debug:
       var: run_plan
+  
+  - name: "[role.terraform] running plan"
+    include_tasks: plan.yml
+    when: run_plan.stat.exists == false
 
 #- ansible.builtin.stat:
 #    path: '{{ plan_file }}'

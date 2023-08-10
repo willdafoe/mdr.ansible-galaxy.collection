@@ -9,8 +9,7 @@
   
   - ansible.builtin.stat:
       path: '{{ plan_file }}'
-    register: planned
-  
-  - include_tasks: apply.yml
-    when: state == "present" and planned.stat.exists == true
-    
+    register: run_apply
+
+  - ansible.builtin.debug:
+      var: run_apply
