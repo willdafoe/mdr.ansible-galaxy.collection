@@ -9,7 +9,7 @@
     loop: "{{ lookup('ansible.builtin.dict', terraform_command, wantlist=True) }}"
 
   - ansible.builtin.debug:
-      var: '{{ item }}'
+      var: item
     with_items:
       - '{{ command }}'
       - '{{ state}}'
