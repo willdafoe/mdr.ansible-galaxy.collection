@@ -1,19 +1,14 @@
 ---
 # tasks file for terraform
-- block:
-  - name: "[role.terraform] setting terraform command"
-    ansible.builtin.set_fact:
-      command: '{{ item.value.name }}'
-      state: '{{ item.value.state }}'
-    when: tf_command is in item.key
-    loop: "{{ lookup('ansible.builtin.dict', terraform_command, wantlist=True) }}"
+- name: "[role.terraform] setting terraform command"
+  ansible.builtin.set_fact:
+    command: '{{ item.value.name }}'
+    state: '{{ item.value.state }}'
+  when: tf_command is in item.key
+  loop: "{{ lookup('ansible.builtin.dict', terraform_command, wantlist=True) }}"
 
-  - ansible.builtin.debug:
-      var: item
-    with_items:
-      - '{{ command }}'
-      - '{{ state}}'
-
+- name: "[role.terraform] running terraform {{ command }}"
+  block:
   - name: "[role.terraform] generating configuration template"
     include_tasks: template.yml
   
@@ -22,19 +17,13 @@
       path: '{{ plan_file }}'
     register: run_plan
   
-  - ansible.builtin.debug:
-      var: run_plan
-  
   - name: "[role.terraform] running plan"
     include_tasks: plan.yml
     when: run_plan.stat.exists == false
+  when: command == "plan"
+  register: apply_can_run
 
-#- ansible.builtin.stat:
-#    path: '{{ plan_file }}'
-#  register: _plan_file
+- ansible.builtin.debug:
+    var: apply_can_run
 
-#- include_tasks: plan.yml
-#  when: state == "planned" or state == "present" and _plan_file.stat.exists == false
 
-#- include_tasks: destroy.yml
-#  when: state == "absent"
