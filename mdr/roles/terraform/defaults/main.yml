@@ -10,10 +10,10 @@ terraform_command:
   destroy:
     name: destroy
     state: absent
-plan_file: '{{ project_path }}/terraform.plan'
-state_file: '{{ project_path }}/terraform.tfstate'
-lock_file: '{{ project_path }}/.terraform.lock.hcl'
+plan_file: '{{ playbook_dir }}/terraform.plan'
+state_file: '{{ playbook_dir }}/terraform.tfstate'
+lock_file: '{{ playbook_dir }}/.terraform.lock.hcl'
 config_template: '{{ role_path }}/templates/config.yaml.j2'
 config: '{{ project_path }}/config/config.yaml'
-inventory_file: '{{ project_path }}/ansible/myazure_rm.yml'
+inventory_file: '{{ playbook_dir }}/ansible/inventory/myazure_rm.yml'
 
